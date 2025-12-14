@@ -1,3 +1,5 @@
+from loguru import logger
+
 from .model_processing import (
     get_model_processing_service,
     ModelProcessingService,
@@ -15,6 +17,7 @@ class ClassificationLogicService:
     async def process_classification_job(self, classification_job_event: str) -> str:
         """Process a single classification job message."""
         event: str = classification_job_event
+        logger.info(f"Processing classification job event: {event}")
         return event
 
 

@@ -29,7 +29,7 @@ class ClassificationJobConsumer(BaseKafkaConsumer):
             await self.commit_message()
 
     def _get_topic_name(self) -> str:
-        return self.kafka_settings.CLASSIFICATION_RESULTS_TOPIC
+        return self.kafka_settings.CLASSIFICATION_JOBS_TOPIC
 
     def _get_group_id(self) -> str:
         return self.kafka_settings.CLASSIFICATION_CONSUMER_GROUP

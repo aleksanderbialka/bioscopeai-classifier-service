@@ -51,7 +51,7 @@ class BaseKafkaProducer(ABC):
         raise RuntimeError(msg)
 
     @abstractmethod
-    async def send_event(self, device_id: str, message: dict[str, Any]) -> None:
+    async def send_event(self, message: dict[str, Any]) -> None:
         """Send a message to the specified Kafka topic."""
 
     async def shutdown(self) -> None:

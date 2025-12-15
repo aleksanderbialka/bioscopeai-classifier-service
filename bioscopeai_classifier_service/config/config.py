@@ -35,6 +35,11 @@ class AuthSettings(BaseSettings):
     PRIVATE_KEY: SecretStr
 
 
+class ServiceAuthSettings(BaseSettings):
+    SERVICE_TOKEN: SecretStr
+    CORE_API_BASE_URL: str = "http://bioscopeai-core:8000"
+
+
 class ImageSettings(BaseSettings):
     UPLOAD_DIR: str
     ALLOWED_MIME: set[str]
@@ -62,12 +67,27 @@ class KafkaSettings(BaseSettings):
     SASL_MECHANISM: str = "SCRAM-SHA-512"
 
 
+class MLModelSettings(BaseSettings):
+    MODEL_PATH: str = ""
+    IMG_SIZE: tuple[int, int] = (300, 300)
+    CLASS_NAMES: list[str] = [
+        "bone_cells_group",
+        "bone_cells_individual",
+        "other",
+        "rbc_group",
+        "rbc_individual",
+        "vascular_fragments",
+    ]
+
+
 class Settings(BaseSettings):
     app: AppSettings
     sentry: SentrySettings
     auth: AuthSettings
+    service_auth: ServiceAuthSettings
     image: ImageSettings
     kafka: KafkaSettings
+    ml_model: MLModelSettings
 
     model_config = SettingsConfigDict(
         yaml_file=_get_yaml_path(),

@@ -1,4 +1,4 @@
-from .classification_job import (
+from .classification_logic import (
     ClassificationLogicService,
     get_classification_logic_service,
 )

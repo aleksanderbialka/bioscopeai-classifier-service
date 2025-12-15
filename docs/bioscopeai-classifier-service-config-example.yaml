@@ -19,6 +19,10 @@ auth:
     -----BEGIN PRIVATE KEY-----
     -----END PRIVATE KEY-----
 
+service_auth:
+  SERVICE_TOKEN: "your-service-to-service-token-here"
+  CORE_API_BASE_URL: "http://bioscopeai-core:8000"
+
 image:
   UPLOAD_DIR: ""
   ALLOWED_MIME:
@@ -38,3 +42,14 @@ kafka:
   SSL_CAFILE: ""
   SSL_CERTFILE: ""
   SSL_KEYFILE: ""
+
+ml_model:
+    MODEL_PATH: ""
+    IMG_SIZE: [300, 300]
+    CLASS_NAMES:
+      - "bone_cells_group"
+      - "bone_cells_individual"
+      - "other"
+      - "rbc_group"
+      - "rbc_individual"
+      - "vascular_fragments"

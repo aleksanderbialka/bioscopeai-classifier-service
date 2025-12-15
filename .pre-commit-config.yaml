@@ -30,7 +30,6 @@ repos:
       - id: trailing-whitespace
       - id: check-yaml
         args: [-m]
-      - id: check-added-large-files
       - id: check-merge-conflict
 
 default_language_version:

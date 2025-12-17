@@ -45,6 +45,14 @@ kafka:
 
 ml_model:
     MODEL_PATH: ""
+
+    USE_HF_HUB: false
+    HF_REPO_ID: ""
+    HF_TOKEN: ""
+    HF_CACHE_DIR: ""
+
+    VERIFY_CHECKSUM: true
+
     IMG_SIZE: [300, 300]
     CLASS_NAMES:
       - "bone_cells_group"

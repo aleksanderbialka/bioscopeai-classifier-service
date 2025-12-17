@@ -200,3 +200,6 @@ bioscopeai-postgres-config.yaml
 
 # Docker
 docker-compose.yml
+
+# ML models
+ml_models/

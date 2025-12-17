@@ -1,3 +1,4 @@
+import tempfile
 from pathlib import Path
 
 from pydantic import SecretStr
@@ -68,7 +69,19 @@ class KafkaSettings(BaseSettings):
 
 
 class MLModelSettings(BaseSettings):
+    # Local model path
     MODEL_PATH: str = ""
+
+    # HuggingFace Hub settings
+    USE_HF_HUB: bool = False
+    HF_REPO_ID: str = ""
+    HF_TOKEN: SecretStr | None = None
+    HF_CACHE_DIR: str = str(Path(tempfile.gettempdir()) / "hf_cache")
+
+    # Model verification
+    VERIFY_CHECKSUM: bool = True
+
+    # Model configurration
     IMG_SIZE: tuple[int, int] = (300, 300)
     CLASS_NAMES: list[str] = [
         "bone_cells_group",

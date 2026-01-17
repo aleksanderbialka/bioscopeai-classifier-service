@@ -11,9 +11,7 @@ from .preprocess import preprocess_image
 
 
 class ModelProcessingService:
-    """
-    Stateless ML inference service.
-    """
+    """Stateless ML inference service."""
 
     def __init__(self) -> None:
         self.metadata: dict[str, Any] = load_metadata()

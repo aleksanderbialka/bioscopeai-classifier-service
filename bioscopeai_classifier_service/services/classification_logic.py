@@ -69,22 +69,51 @@ class ClassificationLogicService:
 
         return image
 
-    def get_image_api_path(self, image_id: str) -> str:
-        return f"{self._base_url}/api/images/{image_id}/file"
+    def get_presigned_url_api_path(self, image_id: str) -> str:
+        """Get API path for fetching presigned URL."""
+        return f"{self._base_url}/api/images/{image_id}/download"
 
-    async def _fetch_image(self, image_id: str) -> bytes:
-        url: str = self.get_image_api_path(image_id)
-        logger.debug(f"Fetching image from {url}")
+    async def _get_presigned_url(self, image_id: str) -> str:
+        """Fetch presigned URL from the API."""
+        url: str = self.get_presigned_url_api_path(image_id)
+        logger.debug(f"Fetching presigned URL from {url}")
 
         async with self.http_session.get(
-            url, headers=self._auth_headers, timeout=aiohttp.ClientTimeout(total=15)
+            url, headers=self._auth_headers, timeout=aiohttp.ClientTimeout(total=10)
         ) as response:
             if response.status != HTTP_OK:
                 error_body = await response.text()
                 logger.error(
-                    f"Failed to fetch image | status={response.status} body={error_body}",
+                    f"Failed to fetch presigned URL | status={response.status} body={error_body}",
                 )
-                msg = f"Failed to fetch image: {response.status}"
+                msg = f"Failed to fetch presigned URL: {response.status}"
+                raise RuntimeError(msg)
+
+            data = await response.json()
+            presigned_url = data.get("url")
+            if not presigned_url:
+                msg = "Presigned URL not found in response"
+                raise RuntimeError(msg)
+
+            return cast("str", presigned_url)
+
+    async def _fetch_image(self, image_id: str) -> bytes:
+        """Fetch image from MinIO using presigned URL."""
+        # First, get the presigned URL from the API
+        presigned_url = await self._get_presigned_url(image_id)
+        logger.debug("Fetching image from MinIO using presigned URL")
+
+        # Fetch image directly from MinIO using presigned URL
+        async with self.http_session.get(
+            presigned_url, timeout=aiohttp.ClientTimeout(total=30)
+        ) as response:
+            if response.status != HTTP_OK:
+                error_body = await response.text()
+                logger.error(
+                    f"Failed to fetch image from MinIO | "
+                    f"status={response.status} body={error_body}",
+                )
+                msg = f"Failed to fetch image from MinIO: {response.status}"
                 raise RuntimeError(msg)
 
             return cast("bytes", await response.read())

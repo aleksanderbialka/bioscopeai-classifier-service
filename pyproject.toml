@@ -84,7 +84,7 @@ warn_redundant_casts = true
 disable_error_code = ["misc"]
 
 [[tool.mypy.overrides]]
-module = ["tests"]
+module = ["tests.*"]
 ignore_errors = true
 implicit_reexport = true
 
@@ -98,12 +98,12 @@ omit = ["*/tests/*", "*/__init__.py"]
 minversion = "7.0"
 python_files = "tests.py test_*.py *_tests.py"
 python_functions = "test_*"
-addopts = "--cov=apps --cov-report=html --cov-report=term-missing"
+addopts = "--cov=bioscopeai_classifier_service --cov-report=html --cov-report=term-missing"
 
 
 # ################ ################ ruff configuration #################
 [tool.ruff]
-extend-exclude = ["__pycache__", "*/migrations/*"]
+extend-exclude = ["__pycache__", "*/migrations/*", "tests/*"]
 force-exclude = true
 namespace-packages = ["bioscopeai_classifier_service"]
 required-version = ">=0.14.2"

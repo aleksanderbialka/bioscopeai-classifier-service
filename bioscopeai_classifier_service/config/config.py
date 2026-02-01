@@ -1,3 +1,4 @@
+import os
 import tempfile
 from pathlib import Path
 
@@ -10,6 +11,10 @@ ROOT_DIR = Path(__file__).parent.parent.parent.parent
 
 
 def _get_yaml_path() -> str:
+    # Support CONFIG_FILE env var for testing
+    if config_file := os.environ.get("CONFIG_FILE"):
+        return config_file
+
     config_path = Path("/etc/bioscopeai-classifier-service-config.yaml")
     if not config_path.exists():
         config_path = ROOT_DIR / "docs/bioscopeai-classifier-service-config.yaml"

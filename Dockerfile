@@ -37,6 +37,7 @@ RUN python3 -m venv /var/www/bioscopeai-classifier-service/app/bioscopeai_classi
 COPY ./pyproject.toml ./poetry.lock ./README.md /var/www/bioscopeai-classifier-service/app/bioscopeai-classifier-service/
 COPY ./bioscopeai_classifier_service /var/www/bioscopeai-classifier-service/app/bioscopeai-classifier-service/bioscopeai_classifier_service
 COPY ./docs /var/www/bioscopeai-classifier-service/app/bioscopeai-classifier-service/docs
+COPY ./tests /var/www/bioscopeai-classifier-service/app/bioscopeai-classifier-service/tests
 COPY ./scripts /var/www/bioscopeai-classifier-service/app/bioscopeai-classifier-service/scripts
 RUN chmod +x /var/www/bioscopeai-classifier-service/app/bioscopeai-classifier-service/scripts/*.sh
 RUN ls -la /var/www/bioscopeai-classifier-service/app/bioscopeai-classifier-service/*

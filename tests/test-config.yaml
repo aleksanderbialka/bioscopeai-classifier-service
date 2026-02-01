@@ -1,0 +1,59 @@
+app:
+  DEBUG: false
+  LOG_LEVEL: "DEBUG"
+  LOG_FILE_LEVEL: "DEBUG"
+  LOG_FILE_PATH: "test-classifier-service.log"
+  PROJECT_NAME: "Test Classifier Service"
+  PROJECT_VERSION: "0.0.1"
+
+sentry:
+  SENTRY_DSN: null
+
+auth:
+  ACCESS_TOKEN_TTL_MINUTES: 15
+  REFRESH_TOKEN_TTL_MINUTES: 10080
+  PUBLIC_KEY: |
+    -----BEGIN PUBLIC KEY-----
+    -----END PUBLIC KEY-----
+  PRIVATE_KEY: |
+    -----BEGIN PRIVATE KEY-----
+    -----END PRIVATE KEY-----
+
+service_auth:
+  SERVICE_TOKEN: "test-service-token-12345"
+  CORE_API_BASE_URL: "http://localhost:8000"
+
+image:
+  UPLOAD_DIR: "/tmp/test-uploads"
+  ALLOWED_MIME:
+    - "image/jpeg"
+    - "image/png"
+  ALLOWED_EXT:
+    - ".jpg"
+    - ".jpeg"
+    - ".png"
+  MAX_FILE_SIZE: 10485760
+
+kafka:
+  BOOTSTRAP_SERVERS: "localhost:9092"
+  CLASSIFICATION_JOBS_TOPIC: "test-classification-job"
+  CLASSIFICATION_RESULTS_TOPIC: "test-classification-result"
+  CLASSIFICATION_CONSUMER_GROUP: "test-consumer-group"
+
+ml_model:
+  MODEL_PATH: "ml_models/test_model.keras"
+  USE_HF_HUB: false
+  HF_REPO_ID: "test-repo/test-model"
+  HF_CACHE_DIR: ".cache/huggingface"
+  HF_TOKEN: null
+
+  VERIFY_CHECKSUM: false
+
+  IMG_SIZE: [300, 300]
+  CLASS_NAMES:
+    - "bone_cells_group"
+    - "bone_cells_individual"
+    - "other"
+    - "rbc_group"
+    - "rbc_individual"
+    - "vascular_fragments"
